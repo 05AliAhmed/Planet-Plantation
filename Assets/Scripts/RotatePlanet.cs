@@ -38,14 +38,14 @@ public class RotatePlanet : MonoBehaviour
         // Mobile input
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(0); // checking for taps on screen
 
-            if (touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Moved) // checking for drag
             {
                 rotX = touch.deltaPosition.x * rotationSpeed * rotationSensi;
                 rotY = touch.deltaPosition.y * rotationSpeed * rotationSensi;
             }
-            else
+            else //if(touch.phase == TouchPhase.Ended)
             {
                 // gradually reduce velocity to 0 (this creates inertia effect)
                 rotX = Mathf.Lerp(rotX, 0, damping * Time.deltaTime);

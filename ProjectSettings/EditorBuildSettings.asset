@@ -11,6 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/level menu.unity
     guid: 501db05a2d856aa4ea206c692a1717be
+  - enabled: 1
+    path: Assets/Scenes/Meadow_1.unity
+    guid: a2a6a00da0fb13048a69c66bf773cde4
+  - enabled: 1
+    path: Assets/Scenes/Urban_2.unity
+    guid: d670d2dde63fdc045a3c97ed5a9c5251
+  - enabled: 1
+    path: Assets/Scenes/Jungle_3.unity
+    guid: fcbc29598a0dab1449658da7d5494957
+  - enabled: 1
+    path: Assets/Scenes/Stoneage_4.unity
+    guid: ba4eb0a33f8515544a2210f7cfe42330
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
