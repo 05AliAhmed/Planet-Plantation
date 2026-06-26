@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TapRaycast1 : MonoBehaviour
 {
     private Vector2 startPos;
-    private float tapThreshold = 10f; // pixels
+    private float tapThreshold = 10f; // pixels 
+    public TMP_Text areaName;
+
+    public float rayCastCorX;
+    public float rayCastCorY;
+    public float rayLenght;
+
 
     void Update()
     {
@@ -23,6 +30,7 @@ public class TapRaycast1 : MonoBehaviour
                 }    
             }
         }
+        AreaNameRay();
     }
     void HandleTap(Vector2 tapPos) // loading area on tap
     {
@@ -37,4 +45,27 @@ public class TapRaycast1 : MonoBehaviour
             if (hit.collider.CompareTag("Stoneage")) SceneManager.LoadScene(5);
         }
     }
+
+    void AreaNameRay() // Displaying area name
+    {
+        Ray areaCheck = Camera.main.ScreenPointToRay(new Vector3(rayCastCorX, rayCastCorY, 0));
+        RaycastHit hit;
+
+            // Draw the ray in Scene view
+        Debug.DrawRay(
+            areaCheck.origin,              // starting point of ray
+            areaCheck.direction * rayLenght,    // direction and length of ray
+            Color.red                      // color of ray
+        );
+
+        if(Physics.Raycast(areaCheck, out hit))
+        {
+            if (hit.collider.CompareTag("Meadow")) areaName.text = "Meadow";
+            else if (hit.collider.CompareTag("Urban")) areaName.text = "Urban";
+            else if (hit.collider.CompareTag("Jungle")) areaName.text = "Jungle";
+            else if (hit.collider.CompareTag("Stoneage")) areaName.text = "Stone Age Village";
+            else                                          areaName.text = "";
+        } 
+        else areaName.text = "";
+    }  
 }
