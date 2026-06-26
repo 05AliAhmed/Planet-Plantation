@@ -52,7 +52,7 @@ public class RotatePlanet : MonoBehaviour
                 rotY = Mathf.Lerp(rotY, 0, damping * Time.deltaTime);
             }
             transform.Rotate(Vector3.up, -rotX, Space.World);
-            transform.Rotate(Vector3.right, -rotY, Space.Self);
+            transform.Rotate(Vector3.right, -rotY, Space.World);
         }
     }
 }

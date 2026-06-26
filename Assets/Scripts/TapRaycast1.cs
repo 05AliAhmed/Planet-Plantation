@@ -31,9 +31,10 @@ public class TapRaycast1 : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if(hit.collider.CompareTag("Meadow")){
-                SceneManager.LoadScene(2);
-            }
+            if (hit.collider.CompareTag("Meadow")) SceneManager.LoadScene(2);
+            if (hit.collider.CompareTag("Urban")) SceneManager.LoadScene(3);
+            if (hit.collider.CompareTag("Jungle")) SceneManager.LoadScene(4);
+            if (hit.collider.CompareTag("Stoneage")) SceneManager.LoadScene(5);
         }
     }
 }
