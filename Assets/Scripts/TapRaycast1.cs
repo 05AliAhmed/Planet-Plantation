@@ -8,9 +8,11 @@ public class TapRaycast1 : MonoBehaviour
     private float tapThreshold = 10f; // pixels 
     public TMP_Text areaName;
 
+
     public float rayCastCorX;
     public float rayCastCorY;
     public float rayLenght;
+
 
 
     void Update()
@@ -32,7 +34,7 @@ public class TapRaycast1 : MonoBehaviour
         }
         AreaNameRay();
     }
-    void HandleTap(Vector2 tapPos) // loading area on tap
+    void HandleTap(Vector2 tapPos) // checking tap on screen
     {
         Ray ray = Camera.main.ScreenPointToRay(tapPos);
         RaycastHit hit;
@@ -68,4 +70,7 @@ public class TapRaycast1 : MonoBehaviour
         } 
         else areaName.text = "";
     }  
+
+
+
 }
