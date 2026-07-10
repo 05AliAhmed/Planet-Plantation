@@ -16,12 +16,12 @@ MonoBehaviour:
   - <Name>k__BackingField: House
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 2, y: 2}
-    <prefab>k__BackingField: {fileID: 3355886477989891787, guid: 1deba8e8b6d639546824f5acb532b102, type: 3}
+    <prefab>k__BackingField: {fileID: 3521807242877212976, guid: 1deba8e8b6d639546824f5acb532b102, type: 3}
   - <Name>k__BackingField: Tree
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
-    <prefab>k__BackingField: {fileID: 4916777865787075159, guid: a74129ba9c983cd4b84c2bcb678fb310, type: 3}
+    <prefab>k__BackingField: {fileID: 5401969716716998191, guid: a74129ba9c983cd4b84c2bcb678fb310, type: 3}
   - <Name>k__BackingField: Person
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
-    <prefab>k__BackingField: {fileID: 4043960333117840356, guid: adecb6af184703940b1cd1787b320e03, type: 3}
+    <prefab>k__BackingField: {fileID: 7758245917489948232, guid: 9175d5d49cfe83f4eb0327a59009d7c6, type: 3}

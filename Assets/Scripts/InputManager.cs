@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,6 +8,8 @@ public class InputManager : MonoBehaviour
     public LayerMask placementLayerMask;
     public Camera scnCam;
     private Vector3 lastPos;
+    private Vector2 strtPos;
+    private float tapThreshold = 10f;
 
     public event Action OnClicked, OnExit;
 
@@ -15,20 +18,20 @@ public class InputManager : MonoBehaviour
         
         if(Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
-            if(touch.phase == TouchPhase.Began) OnClicked?.Invoke();
+            if(touch.phase == TouchPhase.Began) strtPos = touch.position;
+            if(touch.phase == TouchPhase.Ended){
+                float distance = Vector2.Distance(strtPos, touch.position);
+                if(distance < tapThreshold){
+                        OnClicked?.Invoke(); // now on draging shouhld  be no obj  placements, working
+                }
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape)) // need to work on this on button tap or something to go back
             OnExit?.Invoke();
     }
 
-    // public bool IsPointerOverUI() // returns t if tap is over ui of objs n f if over 
-    //     => EventSystem.current.IsPointerOverGameObject();
-    public bool IsPointerOverUI()
-    {
-        if (Input.touchCount > 0)
-            return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
-
-        return EventSystem.current.IsPointerOverGameObject();
+    public bool IsPointerOverUI(){
+        return EventSystem.current.IsPointerOverGameObject(); 
     }
 
     public Vector3 PosOnGrid(){
