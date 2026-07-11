@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlacementSys : MonoBehaviour
 {
-    [SerializeField] private GameObject objectIndicator, cellIndicator;
+    [SerializeField] private GameObject objectIndicator;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Grid grid;
 
@@ -18,14 +18,17 @@ public class PlacementSys : MonoBehaviour
     private GameObject gridVisualization;
 
     private GridData plantsData;
-    private Renderer previewRenderer;
     private List<GameObject> placedGameObjs = new();
+
+    [SerializeField]
+    private PreviewSys preview;
+
+    private Vector3Int lastDetectedPos = Vector3Int.zero;
 
     private void Start()
     {
         StopPlacement();
         plantsData = new();
-        previewRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
     public void StartPlacement(int ID){
@@ -36,7 +39,8 @@ public class PlacementSys : MonoBehaviour
             return;
         }
         gridVisualization.SetActive(true);
-        cellIndicator.SetActive(true);
+        preview.StartShowingPlacementPreview(dataBase.objsData[selectedObjectIndex].prefab,
+                                            dataBase.objsData[selectedObjectIndex].Size);
         inputManager.OnClicked += PlaceObjects;
         inputManager.OnExit += StopPlacement;
     }
@@ -56,9 +60,10 @@ public class PlacementSys : MonoBehaviour
         placedGameObjs.Add(placeableItem);
         GridData selectedData = plantsData;
         selectedData.AddObjectAt(cellPos,
-        dataBase.objsData[selectedObjectIndex].Size,
-        dataBase.objsData[selectedObjectIndex].ID,
-        placedGameObjs.Count - 1); 
+            dataBase.objsData[selectedObjectIndex].Size,
+            dataBase.objsData[selectedObjectIndex].ID,
+            placedGameObjs.Count - 1);
+        preview.UpdatePosition(grid.CellToWorld(cellPos), false);     
     }
 
     private bool CheckPlacementValidity(Vector3Int cellPos, int selectedObjectIndex)
@@ -71,9 +76,10 @@ public class PlacementSys : MonoBehaviour
     {
         selectedObjectIndex = -1;
         gridVisualization.SetActive(false);
-        cellIndicator.SetActive(false);
+        preview.StopShowingPreview();
         inputManager.OnClicked -= PlaceObjects;
         inputManager.OnExit -= StopPlacement;
+        lastDetectedPos = Vector3Int.zero;
     }
 
     private void Update()
@@ -82,11 +88,15 @@ public class PlacementSys : MonoBehaviour
         Vector3 touchPos = inputManager.PosOnGrid();
         Vector3Int cellPos = grid.WorldToCell(touchPos);
         
-        bool placementValidity = CheckPlacementValidity(cellPos, selectedObjectIndex);
-        previewRenderer.material.color = placementValidity ? Color.white : Color.red;
+        if(lastDetectedPos != cellPos)
+        {
+            bool placementValidity = CheckPlacementValidity(cellPos, selectedObjectIndex);
         
-        objectIndicator.transform.position = touchPos;
-        cellIndicator.transform.position = grid.CellToWorld(cellPos);  
-
+            objectIndicator.transform.position = touchPos;
+            preview.UpdatePosition(grid.CellToWorld(cellPos), placementValidity);
+            lastDetectedPos = cellPos;
+    
+        }
+        
     }
 }
