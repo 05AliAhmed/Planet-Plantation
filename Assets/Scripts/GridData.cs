@@ -41,6 +41,20 @@ public class GridData
         return true;
 
     }
+
+    internal int GetRepresnetationIndex(Vector3Int cellPos)
+    {
+        if(placedObjects.ContainsKey(cellPos) ==false) return -1;
+        return placedObjects[cellPos].placedObjIndex;
+    }
+
+    internal void RemoveObjectAt(Vector3Int cellPos)
+    {
+        foreach(var pos in placedObjects[cellPos].occupiedPos)
+        {
+            placedObjects.Remove(pos);
+        }
+    }
 }
 public class PlacementData
 {
