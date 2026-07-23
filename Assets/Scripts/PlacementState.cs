@@ -1,13 +1,6 @@
 using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
-public interface IBuildingState
-{
-    void EndState();
-    void OnAction(Vector3Int cellPos);
-    void UpdateState(Vector3Int cellPos);
-}
-
 public class PlacementState : IBuildingState
 {
     private int selectedObjectIndex = -1;

@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.Escape)) // need to work on this on button tap or something to go back
+        if(Input.GetKeyDown(KeyCode.Escape)) // need to work on this on button tap or something to go back, now working used escape btn to call stop placement directly
             OnExit?.Invoke();
     }
 
@@ -35,12 +35,15 @@ public class InputManager : MonoBehaviour
     }
 
     public Vector3 PosOnGrid(){
-        Vector3 touchPosition = Input.mousePosition;
-        touchPosition.z = scnCam.nearClipPlane;
-        Ray ray = scnCam.ScreenPointToRay(touchPosition);
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 100, placementLayerMask)){
-            lastPos = hit.point;
+        if(Input.touchCount > 0)
+        {
+            Vector3 touchPosition = Input.GetTouch(0).position;
+            // touchPosition.z = scnCam.nearClipPlane;
+            Ray ray = scnCam.ScreenPointToRay(touchPosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 100, placementLayerMask)){
+                lastPos = hit.point;
+            }
         }
         return lastPos;
     }

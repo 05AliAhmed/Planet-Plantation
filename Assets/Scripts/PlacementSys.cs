@@ -8,22 +8,10 @@ public class PlacementSys : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Grid grid;
-
-    [SerializeField]
-    private ObjDatabaseSO dataBase;
-
-    [SerializeField]
-    private GameObject gridVisualization;
-
-    private GridData plantsData;
-    [SerializeField]   
-    private ObjectPlacer objectPlacer;  
-
-    [SerializeField]
-    private PreviewSys preview;
-
-    private Vector3Int lastDetectedPos = Vector3Int.zero;
-
+    [SerializeField] private ObjDatabaseSO dataBase;
+    [SerializeField] private GameObject gridVisualization; private GridData plantsData;
+    [SerializeField] private ObjectPlacer objectPlacer;  
+    [SerializeField] private PreviewSys preview; private Vector3Int lastDetectedPos = Vector3Int.zero;
     IBuildingState buildingState;
 
     private void Start()
@@ -72,15 +60,15 @@ public class PlacementSys : MonoBehaviour
     //     return selectedData.CanPlaceObjectAt(cellPos, dataBase.objsData[selectedObjectIndex].Size);
     // }
 
-    private void StopPlacement()
+    public void StopPlacement()
     {
-        if(buildingState == null) return;
         gridVisualization.SetActive(false);
+        if(buildingState == null) return;
         buildingState.EndState();
         inputManager.OnClicked -= PlaceObjects;
         inputManager.OnExit -= StopPlacement;
         lastDetectedPos = Vector3Int.zero;
-        buildingState = null;
+        // buildingState = null;
     }
 
     private void Update()
