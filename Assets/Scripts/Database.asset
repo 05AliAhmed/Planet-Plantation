@@ -13,15 +13,43 @@ MonoBehaviour:
   m_Name: Database
   m_EditorClassIdentifier: Assembly-CSharp::ObjDatabaseSO
   objsData:
-  - <Name>k__BackingField: House
+  - <Name>k__BackingField: Acacia
     <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 2, y: 2}
-    <prefab>k__BackingField: {fileID: 3521807242877212976, guid: 1deba8e8b6d639546824f5acb532b102, type: 3}
-  - <Name>k__BackingField: Tree
-    <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
     <prefab>k__BackingField: {fileID: 215812367692106092, guid: a6797040e0481ae4e9b7d3e42d4da5eb, type: 3}
-  - <Name>k__BackingField: Person
+  - <Name>k__BackingField: Bamboo
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 4306305530639835122, guid: 32330a7bf5c51454cbffa21fd1f5be7c, type: 3}
+  - <Name>k__BackingField: Birch
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
-    <prefab>k__BackingField: {fileID: 7758245917489948232, guid: 9175d5d49cfe83f4eb0327a59009d7c6, type: 3}
+    <prefab>k__BackingField: {fileID: 7356463370760278904, guid: 0516c15e9b4d75547ba37ec22092d065, type: 3}
+  - <Name>k__BackingField: BushTree
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 2445547453553335150, guid: f26c54756a6f7a141959b80765091e99, type: 3}
+  - <Name>k__BackingField: JungleTree
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 8267119432192713124, guid: db885fcc8cabc1f4e92c77d169c986b1, type: 3}
+  - <Name>k__BackingField: Oak
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 6531900941313907392, guid: d32117690452b1643bebd239faaaf687, type: 3}
+  - <Name>k__BackingField: Palm
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 868538117000293399, guid: 0d21ee9c534a7b54fa0ba96e183f664b, type: 3}
+  - <Name>k__BackingField: Pine
+    <ID>k__BackingField: 7
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 4013700639801414049, guid: 436d5d6f2e18b4e4f801898530bb8bd6, type: 3}
+  - <Name>k__BackingField: Poplar
+    <ID>k__BackingField: 8
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 3431722139216160284, guid: c66f608127806b9499bda6e29e5291c3, type: 3}
+  - <Name>k__BackingField: Willow
+    <ID>k__BackingField: 9
+    <Size>k__BackingField: {x: 1, y: 1}
+    <prefab>k__BackingField: {fileID: 6963990552032267127, guid: 2e931f4095a9dd342bbcce9791c15d49, type: 3}
