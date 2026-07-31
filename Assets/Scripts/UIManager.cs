@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject scrollMenu;
+    [SerializeField] public GameObject scrollMenu;
+    // [SerializeField] private GameObject gridVisualization;
 
     private void Start()
     {
@@ -16,4 +17,10 @@ public class UIManager : MonoBehaviour
     {
         scrollMenu.SetActive(false);
     }
+
+    // public override void StopPlacement()
+    // {
+    //     base.StopPlacement();
+    //     scrollMenu.SetActive(false);
+    // }
 }

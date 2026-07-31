@@ -13,9 +13,12 @@ public class PlacementSys : MonoBehaviour
     [SerializeField] private ObjectPlacer objectPlacer;  
     [SerializeField] private PreviewSys preview; private Vector3Int lastDetectedPos = Vector3Int.zero;
     IBuildingState buildingState;
+    UIManager uIManager;
 
     private void Start()
     {
+        // uIManager = FindAnyObjectByType<UIManager>();
+        uIManager = GameObject.Find("UImanager").GetComponent<UIManager>();
         StopPlacement();
         plantsData = new();
     }
@@ -63,6 +66,7 @@ public class PlacementSys : MonoBehaviour
     public void StopPlacement()
     {
         gridVisualization.SetActive(false);
+        // uIManager.scrollMenu.SetActive(false);
         if(buildingState == null) return;
         buildingState.EndState();
         inputManager.OnClicked -= PlaceObjects;
