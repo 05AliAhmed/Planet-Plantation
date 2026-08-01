@@ -8,6 +8,16 @@ TagManager:
   - Urban
   - Jungle
   - Stoneage
+  - Acacia
+  - Bamboo
+  - Oak
+  - Willow
+  - Poplar
+  - Bushtree
+  - Jungletree
+  - Pine
+  - Birch
+  - Palm
   layers:
   - Default
   - TransparentFX

@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Oak
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5e14f28be2a409c45beca4318976f0b2, type: 3}
+      propertyPath: m_TagString
+      value: Oak
+      objectReference: {fileID: 0}
     - target: {fileID: 2722413200475076648, guid: 5e14f28be2a409c45beca4318976f0b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -46.39
