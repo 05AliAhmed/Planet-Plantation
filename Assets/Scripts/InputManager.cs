@@ -18,29 +18,25 @@ public class InputManager : MonoBehaviour
     private float tapThreshold = 10f;
 
     private float minX; float maxX; float minZ; float maxZ; 
+    public bool isPlacing;
     
 
     public event Action OnClicked, OnExit;
 
     private void Start()
     {
+        isPlacing = false;
         Renderer rend = ground.GetComponent<Renderer>();
         Vector3 size = rend.bounds.size;
         Vector3 center = rend.bounds.center;
         minX = (center.x - size.x / 2) + padding;
         maxX = (center.x + size.x / 2) - padding;
         minZ = (center.z - size.z / 2) + padding;
-        maxZ = (center.z + size.z / 2) - padding;
-        
+        maxZ = (center.z + size.z / 2) - padding;  
     }
 
     private void Update()
     {
-        Debug.DrawLine(
-            new Vector3(minX, 0, minZ),
-            new Vector3(maxX, 0, maxZ),
-            Color.red
-        );
         if(Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
             if(touch.phase == TouchPhase.Began) strtPos = touch.position;
@@ -51,7 +47,7 @@ public class InputManager : MonoBehaviour
                 }
             }
             // CAMERA MOVEMENT (DRAG)
-            if (touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Moved && isPlacing == false)
             {
                 Vector2 delta = touch.deltaPosition;
                 move = new Vector3(-delta.x, 0, -delta.y) * moveSpeed * Time.deltaTime;

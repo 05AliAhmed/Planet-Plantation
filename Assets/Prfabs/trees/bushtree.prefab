@@ -91,5 +91,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cdbb0bb0cbf8781499ada47521322cc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6803614425204180415}
   m_SourcePrefab: {fileID: 100100000, guid: cdbb0bb0cbf8781499ada47521322cc1, type: 3}
+--- !u!1 &2445547453553335150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cdbb0bb0cbf8781499ada47521322cc1, type: 3}
+  m_PrefabInstance: {fileID: 3256451773009061439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6803614425204180415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445547453553335150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373e3bebec0526b459abe2a2faf5d44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeBehaviour
