@@ -7,6 +7,10 @@ public class TreeBehaviour : MonoBehaviour
 {
     // [SerializeField] TMP_Text moneyTxt;
     [SerializeField] private float waitTime = 10f;
+    private ObjectPlacer objectPlacer;
+    private RemovingState removingState;
+    private InputManager inputManager;
+    // RemovingState removingState;
     private float acaciaM = 5;
     private float bambooM = 5;
     private float birchM = 5;
@@ -22,15 +26,18 @@ public class TreeBehaviour : MonoBehaviour
     int index;
     private float timeS = 10f;
 
-    public enum NatureEventsType
-    {
-        Fire,
-        Draught,
-        Storm,
-    }
+    // public enum NatureEventsType
+    // {
+    //     Fire,
+    //     Draught,
+    //     Storm,
+    // }
     void Start()
     {
         NatureManager.Instance.AddTree(this);
+        objectPlacer = GameObject.Find("ObjectPLacer").GetComponent<ObjectPlacer>();
+        // removingState = GameObject.Find("RemovingState").GetComponent<RemovingState>();
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         IncrementMoney();
     }
 
@@ -91,29 +98,34 @@ public class TreeBehaviour : MonoBehaviour
             NatureManager.Instance.RemoveTree(this);
     }
     
-    public void SetIndex(int i)
-    {
-        index = i;
-        // Debug.Log(gameObject.name + " index: " + index);
-    }
+    // public void SetIndex(int i)
+    // {
+    //     index = i;
+    //     // Debug.Log(gameObject.name + " index: " + index);
+    // }
 
-    public void TriggerEvent()
+    public void TriggerEvent(int rnd)
     {
-        NatureEventsType rand = (NatureEventsType)Random.Range(0, 3); // converting int to enum label Fire - 0, Draught - 1 so on
+        Debug.Log(rnd);
+        // NatureEventsType rand = (NatureEventsType)Random.Range(0, 3); // converting int to enum label Fire - 0, Draught - 1 so on
 
-        switch(rand)
-        {
-            case NatureEventsType.Fire:
-                EventOne();
-                break;
-            case NatureEventsType.Draught:
-                Eventtwo();
-                break;
-            case NatureEventsType.Storm:
-                Eventthree();
-                break;
+        // switch(rand)
+        // {
+        //     case NatureEventsType.Fire:
+        //         EventOne();
+        //         break;
+        //     case NatureEventsType.Draught:
+        //         Eventtwo();
+        //         break;
+        //     case NatureEventsType.Storm:
+        //         Eventthree();
+        //         break;
             
-        }
+        // } // can call rnd no. in nature scpt n varify using var in behav scpt 
+
+        if(rnd == 0) EventOne();
+        if(rnd == 1) Eventtwo();
+        if(rnd == 2) Eventthree();
         // Example effects:
         // change color
         // double income
@@ -123,7 +135,9 @@ public class TreeBehaviour : MonoBehaviour
     IEnumerator WaitTBeforeAE() // waittimeBeforeAfterEvent
     {
         yield return new WaitForSeconds(waitTime);
-        Destroy(gameObject);
+
+        // Destroy(gameObject);
+        // objectPlacer.RemoveObjectAt(RemovingState.gameObjectIndex);
     }
     void EventOne() // fire
     {

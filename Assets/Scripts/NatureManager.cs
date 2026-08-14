@@ -8,8 +8,17 @@ public class NatureManager : MonoBehaviour
 {
     public static NatureManager Instance;
 
-    [SerializeField] Transform planeD;
+    [SerializeField] private Transform planeD;
+    [SerializeField] private Grid grid;
+    [SerializeField] private GridData plantsData;
+    [SerializeField] private ObjectPlacer objectPlacer;  
+    [SerializeField] private PreviewSys preview;
+    private RemovingState removingState;
+    private IBuildingState buildingState;
+    private PlacementSys placementSys;
     Renderer rend;
+    public int randEventNum;
+    public float waitTime;
     public List<TreeBehaviour> trees = new List<TreeBehaviour>(); // can also be written like public List<TreeBehaviour> trees = new();
     public List<TreeBehaviour> closestTrees;
     private void Awake()
@@ -21,42 +30,70 @@ public class NatureManager : MonoBehaviour
     private void Start()
     {
         rend = planeD.GetComponent<Renderer>();
+        placementSys = GameObject.Find("PlacementSys").GetComponent<PlacementSys>();
+        SetRemovingState();
 
+    }
+
+    public void SetRemovingState()
+    {
+        // buildingState = new RemovingState(grid,
+        //                                 preview,
+        //                                 plantsData,
+        //                                 objectPlacer);
+        removingState = new RemovingState(grid,
+                                                preview,
+                                                plantsData,
+                                                objectPlacer);
+        // buildingState = new RemovingState()
     }
     public void AddTree(TreeBehaviour tree)
     {
         trees.Add(tree);
-        UpdateIndexes();
+        // Update/Indexes();
     }
 
     public void RemoveTree(TreeBehaviour tree)
     {
         trees.Remove(tree);
-        UpdateIndexes();
+        // UpdateIndexes();
     }
 
-    void UpdateIndexes() // giving indexes to the trees in the main list
-    {
-        for (int i = 0; i < trees.Count; i++)
-        {
-            trees[i].SetIndex(i);
-        }
-    }
+    // void UpdateIndexes() // giving indexes to the trees in the main list
+    // {
+    //     for (int i = 0; i < trees.Count; i++)
+    //     {
+    //         trees[i].SetIndex(i);
+    //     }
+    // }
 
     IEnumerator RandomTreeEventLoop() // waittime for event loops
     {
         while (true)
         {
-            float waitTime = Random.Range(20f, 30f);
+            float waitTime = Random.Range(29f, 30f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log(waitTime);
+            // Debug.Log(waitTime);
             Debug.Log(GetRandomPoint());
             TriggerEventOnClosestTrees();
         }
     }
 
+    // void TriggerRemove(Vector3Int cellPos)
+    // {
+    //     IBuildingState state = placementSys.GetCurrentState();
+    //     Debug.Log(state);
+    //     RemovingState removingState = state as RemovingState;
+
+    //     if (removingState != null)
+    //     {
+    //         removingState.RemoveObjs(cellPos);
+    //     }
+    // }
+
     void TriggerEventOnClosestTrees()
     {
+        randEventNum = Random.Range(0, 3);
         Vector3 randomPoint = GetRandomPoint(); // getting random point on plane
 
         closestTrees = trees  // list of closeby trees
@@ -66,11 +103,22 @@ public class NatureManager : MonoBehaviour
 
         foreach (var tree in closestTrees) // for each tree in closetree  list triggerevnets from trebehaviour
         {
-            tree.TriggerEvent();
-            // Debug.Log(GetRandomPoint());
+            tree.TriggerEvent(randEventNum); // every tree is playing rnd 
+            // startcoroutine(waitTime)
+            Vector3 treePos = tree.transform.position;
+            Vector3Int cellPos = grid.WorldToCell(treePos);
+            removingState.RemoveObjs(cellPos);
+            // TriggerRemove(cellPos);
         }
     }
 
+    IEnumerator WaitTBeforeAE() // waittimeBeforeAfterEvent
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        // Destroy(gameObject);
+        // objectPlacer.RemoveObjectAt(RemovingState.gameObjectIndex);
+    }
     Vector3 GetRandomPoint()
     {
         Vector3 size = rend.bounds.size; // taking total size of the plane using renderer

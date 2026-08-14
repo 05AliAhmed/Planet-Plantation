@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class RemovingState : IBuildingState
@@ -49,6 +47,17 @@ public class RemovingState : IBuildingState
         }
         Vector3 cellPosition = grid.CellToWorld(cellPos);
         previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); 
+    }
+
+    public void RemoveObjs(Vector3Int cellPos)
+    {
+        GridData selectedData = null;
+        gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos); // getting cell of the placed obj
+        if(gameObjectIndex == -1) return; // if cell is empty return
+        selectedData.RemoveObjectAt(cellPos);  // else make cell empty again in griddata
+        objectPlacer.RemoveObjectAt(gameObjectIndex); // remove game obj at cell pos
+        Vector3 cellPosition = grid.CellToWorld(cellPos); // update cell pos
+        previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); // update preview sys 
     }
 
     private bool CheckIfSelectionIsValid(Vector3Int cellPos)

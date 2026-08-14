@@ -37,7 +37,7 @@ public class PlacementSys : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
-    public void StartRemoving()
+    public void StartRemoving() // call strtremoving in trigger events that will chane the building state 
     {
         StopPlacement();
         gridVisualization.SetActive(false);
@@ -45,6 +45,7 @@ public class PlacementSys : MonoBehaviour
                                           preview,
                                           plantsData,
                                           objectPlacer);
+        // NatureManager.Instance.SetRemovingState();
         inputManager.OnClicked += PlaceObjects;
         inputManager.OnExit += StopPlacement;
     }
@@ -57,12 +58,10 @@ public class PlacementSys : MonoBehaviour
 
         buildingState.OnAction(cellPos);    
     }
-
-    // private bool CheckPlacementValidity(Vector3Int cellPos, int selectedObjectIndex)
-    // {
-    //     GridData selectedData = plantsData;
-    //     return selectedData.CanPlaceObjectAt(cellPos, dataBase.objsData[selectedObjectIndex].Size);
-    // }
+    public IBuildingState GetCurrentState()
+    {
+        return buildingState;
+    }
 
     public void StopPlacement()
     {
