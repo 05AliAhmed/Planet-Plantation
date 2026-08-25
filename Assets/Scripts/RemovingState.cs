@@ -8,14 +8,14 @@ public class RemovingState : IBuildingState
     GridData plantData;
     ObjectPlacer objectPlacer;
 
-    public RemovingState(Grid grid,
+    public RemovingState(Grid grid, // how does this work??
                          PreviewSys previewSys,
                          GridData plantdata,
                          ObjectPlacer objectPlacer)
     {
         this.grid = grid;
         this.previewSys = previewSys;
-        this.plantData = plantdata;
+        this.plantData = plantdata; // is the script = griddata = plantdata??? 
         this.objectPlacer = objectPlacer;
 
         previewSys.StartShowingRemovePreview();
@@ -41,15 +41,15 @@ public class RemovingState : IBuildingState
         {
             gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos);
             if(gameObjectIndex == -1) return;
-            selectedData.RemoveObjectAt(cellPos);     
-            objectPlacer.RemoveObjectAt(gameObjectIndex);
+            selectedData.RemoveObjectAt(cellPos); // removes index from list grid in short, i guess    
+            objectPlacer.RemoveObjectAt(gameObjectIndex); // removes the obj itself
 
         }
         Vector3 cellPosition = grid.CellToWorld(cellPos);
         previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); 
     }
 
-    public void RemoveObjs(Vector3Int cellPos)
+    public void RemoveObjs(Vector3Int cellPos) // remove this function later
     {
         GridData selectedData = null;
         gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos); // getting cell of the placed obj

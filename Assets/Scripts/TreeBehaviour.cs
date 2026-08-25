@@ -132,11 +132,13 @@ public class TreeBehaviour : MonoBehaviour
         // play particles
     }
 
-    IEnumerator WaitTBeforeAE() // waittimeBeforeAfterEvent
+    IEnumerator WaitTBeforeAE() // waittimeBeforeAfterEvent and during this time there will be event animations like fire or dead tree mesh then tree bye bye
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime); // calling this func in nature manager will remove the tree from t
 
-        // Destroy(gameObject);
+        //Destroy(gameObject); // 8. OKK, I NEED THIS COROUTINE HERE B/C I WANT IT TO WAIT FIRST THEN DESTROY THE OBJ, OKK SAME THING IS HAPPENING IN NATURE MANAGER. IGN!! 
+        //NatureManager.Instance.RemoveTree(this); // 7. HERE IS THE ISSUE GAME OBJ IS BEING DESTROYED HERE BEFORE ANYTHING STARTS IN NATURE MANAGER
+
         // objectPlacer.RemoveObjectAt(RemovingState.gameObjectIndex);
     }
     void EventOne() // fire

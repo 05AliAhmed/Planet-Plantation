@@ -9,18 +9,28 @@ public class PlacementSys : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Grid grid;
     [SerializeField] private ObjDatabaseSO dataBase;
-    [SerializeField] private GameObject gridVisualization; private GridData plantsData;
+    [SerializeField] private GameObject gridVisualization; public GridData plantsData;
     [SerializeField] private ObjectPlacer objectPlacer;  
     [SerializeField] private PreviewSys preview; private Vector3Int lastDetectedPos = Vector3Int.zero;
     IBuildingState buildingState;
     // UIManager uIManager;
+
+    private void Awake()
+    {
+        plantsData = new GridData();
+    }
 
     private void Start()
     {
         // uIManager = FindAnyObjectByType<UIManager>();
         // uIManager = GameObject.Find("UImanager").GetComponent<UIManager>();
         StopPlacement();
-        plantsData = new();
+        //plantsData = new();
+    }
+
+    public GridData GetGridData() // THIS IS THE GETTER ## NOT WORKING THOUGH
+    {
+        return plantsData;
     }
 
     public void StartPlacement(int ID){

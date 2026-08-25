@@ -1375,7 +1375,7 @@ MonoBehaviour:
   objectPlacer: {fileID: 1782767621}
   preview: {fileID: 927824973}
   randEventNum: 0
-  waitTime: 0
+  waitTime: 5
   trees: []
   closestTrees: []
 --- !u!1 &590842210
