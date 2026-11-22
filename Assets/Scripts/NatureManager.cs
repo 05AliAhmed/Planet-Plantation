@@ -117,11 +117,7 @@ public class NatureManager : MonoBehaviour
             //Debug.Log(cellPos);
             plantsGrid.GetRepresnetationIndex(cellPos); // #### LESS HOPE!!!!! IT WILL WORK NOW
             plantsGrid.RemoveObjectAt(cellPos); // 3.LEARNED A NEW THING .INSTANCE(HERE.abc) is just a name to var type script >> public static SCRIPT VAR; WOOOOahww. 
-         
-            //Debug.Log("Tree destroyed");
             RemoveTree(tree); // gameojb removed from the list closest tree
-            //Debug.Log("tree remove form the list");
-            //Debug.Log("Tree pos remove from the grid");
             Destroy(tree.gameObject); // gameobject destroyed
         }
     }
@@ -129,10 +125,6 @@ public class NatureManager : MonoBehaviour
     IEnumerator WaitTBeforeAE() // waittimeBeforeAfterEvent
     {
         yield return new WaitForSeconds(waitTime);
-
-
-        
-        // objectPlacer.RemoveObjectAt(RemovingState.gameObjectIndex);
     }
     Vector3 GetRandomPoint()
     {

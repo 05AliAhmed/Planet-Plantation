@@ -29,15 +29,15 @@ public class RemovingState : IBuildingState
     public void OnAction(Vector3Int cellPos)
     {
         GridData selectedData = null;
-        if(plantData.CanPlaceObjectAt(cellPos,Vector2Int.one) == false)
+        if(plantData.CanPlaceObjectAt(cellPos,Vector2Int.one) == false) // check if there is obj on the cell to remove
         {
             selectedData = plantData;
         }
-        if(selectedData == null)
+        if(selectedData == null) // if no obj play nope sound
         {
             //sound
         }
-        else
+        else // Remove Obj
         {
             gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos);
             if(gameObjectIndex == -1) return;
@@ -49,23 +49,23 @@ public class RemovingState : IBuildingState
         previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); 
     }
 
-    public void RemoveObjs(Vector3Int cellPos) // remove this function later
-    {
-        GridData selectedData = null;
-        gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos); // getting cell of the placed obj
-        if(gameObjectIndex == -1) return; // if cell is empty return
-        selectedData.RemoveObjectAt(cellPos);  // else make cell empty again in griddata
-        objectPlacer.RemoveObjectAt(gameObjectIndex); // remove game obj at cell pos
-        Vector3 cellPosition = grid.CellToWorld(cellPos); // update cell pos
-        previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); // update preview sys 
-    }
+    //public void RemoveObjs(Vector3Int cellPos) // remove this function later
+    //{
+    //    GridData selectedData = null;
+    //    gameObjectIndex = selectedData.GetRepresnetationIndex(cellPos); // getting cell of the placed obj
+    //    if(gameObjectIndex == -1) return; // if cell is empty return
+    //    selectedData.RemoveObjectAt(cellPos);  // else make cell empty again in griddata
+    //    objectPlacer.RemoveObjectAt(gameObjectIndex); // remove game obj at cell pos
+    //    Vector3 cellPosition = grid.CellToWorld(cellPos); // update cell pos
+    //    previewSys.UpdatePosition(cellPosition,CheckIfSelectionIsValid(cellPos)); // update preview sys 
+    //}
 
     private bool CheckIfSelectionIsValid(Vector3Int cellPos)
     {
         return !(plantData.CanPlaceObjectAt(cellPos,Vector2Int.one));
     }
 
-    public void UpdateState(Vector3Int cellPos)
+    public void UpdateState(Vector3Int cellPos) // updating grid data if cell is occupied or not
     {
         bool validity = CheckIfSelectionIsValid(cellPos);
         previewSys.UpdatePosition(grid.CellToWorld(cellPos), validity);
