@@ -28,7 +28,7 @@ public class PlacementSys : MonoBehaviour
         //plantsData = new();
     }
 
-    public GridData GetGridData() // THIS IS THE GETTER ## NOT WORKING THOUGH
+    public GridData GetGridData() // THIS IS THE GETTER 
     {
         return plantsData;
     }
@@ -45,6 +45,7 @@ public class PlacementSys : MonoBehaviour
                                            objectPlacer);
         inputManager.OnClicked += PlaceObjects;
         inputManager.OnExit += StopPlacement;
+        GameState.Placing = true;
     }
 
     public void StartRemoving() // call strtremoving in trigger events that will chane the building state 
@@ -58,6 +59,7 @@ public class PlacementSys : MonoBehaviour
         // NatureManager.Instance.SetRemovingState();
         inputManager.OnClicked += PlaceObjects;
         inputManager.OnExit += StopPlacement;
+        GameState.Placing = true;
     }
 
     private void PlaceObjects() // if can be added to confirm where to place the object
@@ -83,6 +85,7 @@ public class PlacementSys : MonoBehaviour
         inputManager.OnClicked -= PlaceObjects;
         inputManager.OnExit -= StopPlacement;
         lastDetectedPos = Vector3Int.zero;
+        GameState.Placing = false;
         // buildingState = null;
     }
 
@@ -99,5 +102,11 @@ public class PlacementSys : MonoBehaviour
     
         }
         
+    }
+
+    private void OnDestroy()
+    {
+        GameState.PanelOpen = false;   // in UIManager
+        GameState.Placing = false;     // in PlacementSys
     }
 }

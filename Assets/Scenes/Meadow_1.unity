@@ -1841,6 +1841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   scrollMenu: {fileID: 1666579304}
+  placementSys: {fileID: 0}
 --- !u!1 &774100278
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,6 +6220,7 @@ MonoBehaviour:
   ground: {fileID: 1156456149}
   placementSys: {fileID: 1985217040}
   settings: {fileID: 11400000, guid: bfddc4bfba56f2e4f9bbedd57767da41, type: 2}
+  objectPlacer: {fileID: 1782767621}
 --- !u!1 &2068218298
 GameObject:
   m_ObjectHideFlags: 0

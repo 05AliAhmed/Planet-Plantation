@@ -130,6 +130,7 @@ public class PeopleAI : MonoBehaviour, IPeopleState
     private List<TreeBehaviour> GetTreesInRange(Vector3Int centre)
     {
         var result = new List<TreeBehaviour>();
+        if (GameState.IsPaused) return result;
         if (NatureManager.Instance == null) return result;
 
         int r = cfg.roamRadius;
@@ -178,6 +179,8 @@ public class PeopleAI : MonoBehaviour, IPeopleState
             yield break;
         }
 
+        Vector3Int treeCell = world.WorldToCell(tree.transform.position);
+
         FaceTowards(tree.transform.position);
         tree.TriggerEvent(Random.Range(0, 3), gameObject);   // 0 fire, 1 drought, 2 storm
 
@@ -189,7 +192,18 @@ public class PeopleAI : MonoBehaviour, IPeopleState
             yield return null;
         }
 
-        if (tree != null) tree.ReleaseClaim(this, cfg.treeCooldown);
+        // remove the tree, unless NatureManager already did
+        if (tree != null)
+        {
+            int index = world.TreeGrid.GetRepresnetationIndex(treeCell);
+            if (index != -1)
+            {
+                world.TreeGrid.RemoveObjectAt(treeCell);     // frees the cell in the data
+                world.ObjectPlacer.RemoveObjectAt(index);    // destroys the tree object
+            }
+            tree.ReleaseClaim(this, cfg.treeCooldown);
+        }
+
         treeInAffect = null;
         Returning();
     }

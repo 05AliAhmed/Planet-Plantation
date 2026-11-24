@@ -16,7 +16,10 @@ public class MoneyManager : MonoBehaviour
 
     public void AddMoney(float amount)
     {
-        money += amount;
-        moneyTxt.text = money.ToString();
+        if (!GameState.IsPaused)
+        {
+            money += amount;
+            moneyTxt.text = money.ToString();
+        }
     }
 }

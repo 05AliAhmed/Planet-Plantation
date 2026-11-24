@@ -12,7 +12,8 @@ public class PeopleWorld : MonoBehaviour
     [SerializeField] private Renderer ground;            // renderer of the ground plane people walk on
     [SerializeField] private PlacementSys placementSys;  // gives us the tree GridData
     [SerializeField] private PeopleSettingSO settings;
-
+    [SerializeField] private ObjectPlacer objectPlacer;
+    public ObjectPlacer ObjectPlacer => objectPlacer;
     public PeopleSettingSO Settings => settings;
 
     // Separate GridData for people so they never block tree placement.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e712a95d178ce6140b8c46a1bc76bcbe, type: 3}
   m_Name: PeopleSettings
   m_EditorClassIdentifier: Assembly-CSharp::PeopleSettingSO
-  spawnCount: 5
+  spawnCount: 1
   spawnAttempts: 50
   roamRadius: 4
   waitMin: 3
