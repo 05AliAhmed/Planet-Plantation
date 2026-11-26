@@ -10,13 +10,15 @@ public class PlacementState : IBuildingState
     ObjDatabaseSO dataBase;
     GridData plantData;
     ObjectPlacer objectPlacer;
+    InventorySystem inventory;
 
     public PlacementState(int iD, // how does this work??
                           Grid grid,
                           PreviewSys previewSys,
                           ObjDatabaseSO dataBase,
                           GridData plantdata,
-                          ObjectPlacer objectPlacer)
+                          ObjectPlacer objectPlacer,
+                          InventorySystem inventory)
     {
         ID = iD;
         this.grid = grid;
@@ -24,6 +26,7 @@ public class PlacementState : IBuildingState
         this.dataBase = dataBase;
         this.plantData = plantdata;
         this.objectPlacer = objectPlacer;
+        this.inventory = inventory;
 
         selectedObjectIndex = dataBase.objsData.FindIndex(objInd => objInd.ID == ID);
         if (selectedObjectIndex > -1)
@@ -32,7 +35,7 @@ public class PlacementState : IBuildingState
                                             dataBase.objsData[selectedObjectIndex].Size);
         }
         else throw new System.Exception($"No Object With ID {iD}");
-
+        this.inventory = inventory;
     }
 
     public void EndState()
@@ -45,6 +48,8 @@ public class PlacementState : IBuildingState
         bool placementValidity = CheckPlacementValidity(cellPos, selectedObjectIndex);
         if (placementValidity == false)
             return;
+
+        if (!inventory.RemoveItem(ID)) return;   // none left, so don't place
 
         int index = objectPlacer.PlaceObject(dataBase.objsData[selectedObjectIndex].prefab, grid.CellToWorld(cellPos));
 
@@ -59,7 +64,8 @@ public class PlacementState : IBuildingState
     private bool CheckPlacementValidity(Vector3Int cellPos, int selectedObjectIndex)
     {
         GridData selectedData = plantData;
-        return selectedData.CanPlaceObjectAt(cellPos, dataBase.objsData[selectedObjectIndex].Size);
+        return selectedData.CanPlaceObjectAt(cellPos, dataBase.objsData[selectedObjectIndex].Size)
+           && inventory.HasItem(ID);
     }
 
     public void UpdateState(Vector3Int cellPos)

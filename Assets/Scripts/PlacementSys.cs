@@ -12,6 +12,9 @@ public class PlacementSys : MonoBehaviour
     [SerializeField] private GameObject gridVisualization; public GridData plantsData;
     [SerializeField] private ObjectPlacer objectPlacer;  
     [SerializeField] private PreviewSys preview; private Vector3Int lastDetectedPos = Vector3Int.zero;
+    [SerializeField] private InventorySystem inventory;
+
+    private int currentPlacingID = -1;
     IBuildingState buildingState;
     // UIManager uIManager;
 
@@ -34,6 +37,11 @@ public class PlacementSys : MonoBehaviour
     }
 
     public void StartPlacement(int ID){
+        if (!inventory.HasItem(ID))
+        {
+            Debug.Log($"Need more {inventory.GetName(ID)} trees");
+            return;
+        }
         StopPlacement();
         inputManager.isPlacing = true;
         gridVisualization.SetActive(true);
@@ -42,7 +50,8 @@ public class PlacementSys : MonoBehaviour
                                            preview,
                                            dataBase,
                                            plantsData,
-                                           objectPlacer);
+                                           objectPlacer,
+                                           inventory);
         inputManager.OnClicked += PlaceObjects;
         inputManager.OnExit += StopPlacement;
         GameState.Placing = true;
@@ -68,7 +77,12 @@ public class PlacementSys : MonoBehaviour
         Vector3 touchPos = inputManager.PosOnGrid();
         Vector3Int cellPos = grid.WorldToCell(touchPos);
 
-        buildingState.OnAction(cellPos);    
+        buildingState.OnAction(cellPos);
+        if (currentPlacingID != -1 && !inventory.HasItem(currentPlacingID))
+        {
+            Debug.Log($"Out of {inventory.GetName(currentPlacingID)} trees");
+            StopPlacement();
+        }
     }
     public IBuildingState GetCurrentState()
     {
@@ -77,6 +91,7 @@ public class PlacementSys : MonoBehaviour
 
     public void StopPlacement()
     {
+        currentPlacingID = -1;
         gridVisualization.SetActive(false);
         inputManager.isPlacing = false;
         // uIManager.scrollMenu.SetActive(false);

@@ -10,6 +10,7 @@ public class ObjDatabaseSO : ScriptableObject
   
 [Serializable]
 
+// stores data for every tree with unique ID/ Indices
 public class ObjectData{
     [field: SerializeField] public string Name {get;private set;}
     [field: SerializeField] public int ID {get;private set;}
